@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/top_margin"
+        android:fontFamily="sans-serif-medium"
+        android:text="Bomboniere PA"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/config"
+        android:layout_width="59dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="@dimen/top_margin"
+        app:icon="@android:drawable/ic_menu_manage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.792"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/button_personalizados"
+        android:layout_width="314dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="@dimen/space_button"
+        android:text="Adesivos Personalizados"
+        android:textColorLink="#D72121"
+        app:icon="@android:drawable/ic_menu_edit"
+        app:layout_constraintBottom_toTopOf="@+id/button_cria_adesivos_lotes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.987" />
+
+    <Button
+        android:id="@+id/button_cria_adesivos_lotes"
+        android:layout_width="314dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="@dimen/space_button"
+        android:text="Adesivos Lotes"
+        app:icon="@android:drawable/ic_menu_my_calendar"
+        app:layout_constraintBottom_toTopOf="@+id/button_exibe_lotes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_exibe_lotes"
+        android:layout_width="314dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="@dimen/space_button"
+        android:text="Lotes Antigos"
+        app:icon="@android:drawable/ic_menu_recent_history"
+        app:layout_constraintBottom_toTopOf="@+id/button_busca_lotes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_busca_lotes"
+        android:layout_width="314dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="@dimen/space_button"
+        android:text="Consulta Lotes"
+        app:icon="@android:drawable/ic_menu_search"
+        app:layout_constraintBottom_toTopOf="@+id/button_planilhas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_planilhas"
+        android:layout_width="314dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="250dp"
+        android:text="Planilhas"
+        app:icon="@android:drawable/ic_dialog_dialer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

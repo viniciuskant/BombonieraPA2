@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdesivosLotes">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/top_margin"
+        android:fontFamily="sans-serif-medium"
+        android:text="Adesivos Lotes"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/back_home"
+        android:layout_width="66dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="@dimen/top_margin"
+        app:icon="?attr/homeAsUpIndicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edtData"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
+        android:focusableInTouchMode="false"
+        android:hint="Data"
+        android:inputType="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView2" />
+
+    <TextView
+        android:id="@+id/viewLote"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="Lote"
+        android:hint="Lote"
+        android:gravity="start|center_vertical"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/edtData"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/edtNomeProduto"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:hint="Nome do Produto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewLote" />
+
+    <EditText
+        android:id="@+id/edtQuantidade"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:hint="Quantidade"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtNomeProduto" />
+
+    <!-- Cabeçalho da lista -->
+
+    <Button
+        android:id="@+id/btnAdicionarProduto"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        android:text="Adicionar Produto"
+        app:layout_constraintEnd_toStartOf="@+id/btnGerarPDF"
+        app:layout_constraintHorizontal_bias="0.837"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtQuantidade" />
+
+    <Button
+        android:id="@+id/btnGerarPDF"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="28dp"
+        android:text="Gerar PDF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtQuantidade" />
+
+    <TextView
+        android:id="@+id/txtNome"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:text="Nome"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAdicionarProduto" />
+
+    <!-- RecyclerView para exibir os itens -->
+    <TextView
+        android:id="@+id/txtQuantidade"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="164dp"
+        android:gravity="center"
+        android:text="Qtd"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAdicionarProduto" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewItens"
+        android:layout_width="348dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNome" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
