@@ -1,11 +1,11 @@
 package com.bomboniere.app.Lotes
 
-import java.time.LocalDate
+import java.io.Serializable
 
 data class Item(
     val nome: String,
     val quantidade: Int?,
-    val data: LocalDate,
-    val lote: String,
-    val notificar: Boolean = true
-)
+    val data: Int,
+    val lote: Int,
+    val notificar: Int
+) :  Serializable

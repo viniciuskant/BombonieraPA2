@@ -1,17 +1,14 @@
-package com.bomboniere.app
+package com.bomboniere.app.Lotes
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bomboniere.app.Item
 import com.bomboniere.app.R
 import java.time.format.DateTimeFormatter
 
 class ItemAdapter(private val itens: List<Item>) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
-
-    private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvNome: TextView = itemView.findViewById(R.id.tvNome)
@@ -30,7 +27,7 @@ class ItemAdapter(private val itens: List<Item>) : RecyclerView.Adapter<ItemAdap
 
         holder.tvNome.text = item.nome
         holder.tvQuantidade.text = item.quantidade?.toString() ?: "0"
-        holder.tvData.text = item.data.format(formatter)
+        holder.tvData.text = item.data.toString()
     }
 
     override fun getItemCount() = itens.size

@@ -1,4 +1,4 @@
-package com.bomboniere.app
+package com.bomboniere.app.Lotes
 
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
@@ -26,10 +26,9 @@ class Lote(context: Context) {
     }
 
     fun calcularDataDoLote(lote: String): Date? {
-        val sdf = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
         val currentDate = Calendar.getInstance()
 
-        for (i in 0..365 * 10) { // tentativa por 10 anos
+        for (i in 0..365 * 10) {
             currentDate.add(Calendar.DATE, -1)
             val data = currentDate.time
             val hashGerado = calcularHashEUltimos6Digitos(data)
@@ -42,18 +41,13 @@ class Lote(context: Context) {
 
     fun armazenarLote(item: Item) {
         val db = dbHelper.writableDatabase
-        val sdf = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
-
-        // Converter LocalDate para Date
-        val date = Date.from(item.data.atStartOfDay(ZoneId.systemDefault()).toInstant())
-        val dataString = sdf.format(date)
 
         val values = ContentValues().apply {
             put("nome_produto", item.nome)
             put("quantidade", item.quantidade)
             put("lote", item.lote)
-            put("data", dataString)
-            put("notificar", if (item.notificar) 1 else 0)
+            put("data", item.data)
+            put("notificar", item.notificar)
         }
 
         db.insert("Lotes", null, values)
@@ -61,23 +55,11 @@ class Lote(context: Context) {
 
     fun armazenarTodosLotes(itens: List<Item>) {
         val db = dbHelper.writableDatabase
-        val sdf = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
 
         db.beginTransaction()
         try {
             for (item in itens) {
-                val date = Date.from(item.data.atStartOfDay(ZoneId.systemDefault()).toInstant())
-                val dataString = sdf.format(date)
-
-                val values = ContentValues().apply {
-                    put("nome_produto", item.nome)
-                    put("quantidade", item.quantidade)
-                    put("lote", item.lote)
-                    put("data", dataString)
-                    put("notificar", if (item.notificar) 1 else 0)
-                }
-
-                db.insert("Lotes", null, values)
+                armazenarLote(item)
             }
             db.setTransactionSuccessful()
         } finally {
@@ -85,12 +67,12 @@ class Lote(context: Context) {
         }
     }
 
-    fun buscarLotes(): List<String> {
+    fun buscarLotes(): List<Int> {
         val db = dbHelper.readableDatabase
         val cursor = db.query("Lotes", null, null, null, null, null, null)
-        val lotes = mutableListOf<String>()
+        val lotes = mutableListOf<Int>()
         while (cursor.moveToNext()) {
-            val lote = cursor.getString(cursor.getColumnIndex("lote"))
+            val lote = cursor.getColumnIndex("lote")
             lotes.add(lote)
         }
         cursor.close()
@@ -105,46 +87,26 @@ class Lote(context: Context) {
         while (cursor.moveToNext()) {
             val nome = cursor.getString(cursor.getColumnIndex("nome_produto"))
             val quantidade = cursor.getInt(cursor.getColumnIndex("quantidade"))
-            val lote = cursor.getString(cursor.getColumnIndex("lote"))
-            val dataString = cursor.getString(cursor.getColumnIndex("data"))
-            val notificar = cursor.getInt(cursor.getColumnIndex("notificar")) == 1
+            val lote = cursor.getInt(cursor.getColumnIndex("lote"))
+            val data = cursor.getInt(cursor.getColumnIndex("data"))
+            val notificar = cursor.getInt(cursor.getColumnIndex("notificar"))
 
-            val sdf = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
-            val date = sdf.parse(dataString)
-            val localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-
-            itens.add(Item(nome, quantidade, localDate, lote, notificar))
+            itens.add(Item(nome, quantidade, data, lote, notificar))
         }
         cursor.close()
         return itens
     }
 
-    fun limparTabelaLotes() {
+    fun updateNotificao(nome: String, novaNotificacao: Int): Boolean {
         val db = dbHelper.writableDatabase
-        db.delete("Lotes", null, null)
+
+        val values = ContentValues().apply {
+            put(LoteDatabaseHelper.COLUMN_NOTIFICAR, novaNotificacao)}
+
+        val rowsAffected = db.update(LoteDatabaseHelper.TABLE_LOTES, values,
+            "${LoteDatabaseHelper.COLUMN_NOME} = ?", arrayOf(nome))
+
+        return rowsAffected > 0
     }
 
-    public class LoteDatabaseHelper(context: Context) :
-        SQLiteOpenHelper(context, "LoteDB", null, 1) {
-
-        override fun onCreate(db: SQLiteDatabase?) {
-            db?.execSQL(
-                """
-                CREATE TABLE Lotes (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    nome_produto TEXT,
-                    quantidade INTEGER,
-                    lote TEXT,
-                    data TEXT,
-                    notificar INTEGER
-                );
-                """.trimIndent()
-            )
-        }
-
-        override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-            db?.execSQL("DROP TABLE IF EXISTS Lotes")
-            onCreate(db)
-        }
-    }
 }
