@@ -13,3 +13,47 @@ captures
 .externalNativeBuild
 .cxx
 local.properties
+
+
+# Gradle
+.gradle/
+build/
+**/build/
+
+# Configuração local (caminho do SDK, etc.)
+local.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+captures/
+.navigation/
+.externalNativeBuild/
+.cxx/
+
+# Kotlin
+.kotlin/
+
+# Arquivos de saída
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+output-metadata.json
+
+# Chaves de assinatura (SENSÍVEL)
+*.jks
+*.keystore
+
+# Firebase / Google Services (se aplicável)
+google-services.json
+
+# Logs
+*.log
+
+# Perfis
+*.hprof
