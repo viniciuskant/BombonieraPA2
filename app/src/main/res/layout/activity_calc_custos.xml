@@ -1,34 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".CalcCustos">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <include layout="@layout/content_calc_custos" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_marginTop="@dimen/top_margin"
+        android:fontFamily="sans-serif-medium"
+        android:text="Bomboniere PA"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_custo_insumos"
+        android:layout_width="314dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="200dp"
+        android:text="Custos Insumos"
+        app:icon="@drawable/attach_money"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:layout_constraintBottom_toTopOf="@id/button_receitas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <Button
+        android:id="@+id/button_receitas"
+        android:layout_width="314dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
+        android:text="Receitas"
+        app:icon="@drawable/menu_book_2"
+        app:layout_constraintTop_toBottomOf="@id/button_custo_insumos"
+        app:layout_constraintBottom_toTopOf="@id/button_tabela_conversao"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/button_tabela_conversao"
+        android:layout_width="314dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
+        android:text="Tabela de Conversão"
+        app:icon="@drawable/table_convert"
+        app:layout_constraintTop_toBottomOf="@id/button_receitas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+<!--    <Button-->
+<!--        android:id="@+id/button_receitas"-->
+<!--        android:layout_width="314dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginTop="12dp"-->
+<!--        android:text="Receitas"-->
+<!--        app:icon="@drawable/menu_book_2"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/button_custo_insumos"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/button_tabela_conversao"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/button_tabela_conversao"-->
+<!--        android:layout_width="314dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginTop="12dp"-->
+<!--        android:text="Tabela de Conversão"-->
+<!--        app:icon="@drawable/table_convert"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/button_receitas"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

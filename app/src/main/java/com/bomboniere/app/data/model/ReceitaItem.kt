@@ -1,6 +1,6 @@
-package com.bomboniere.app.data
+package com.bomboniere.app.data.model
+import androidx.room.*
 
-// ReceitaItem.kt
 @Entity(
     tableName = "receita_itens",
     foreignKeys = [

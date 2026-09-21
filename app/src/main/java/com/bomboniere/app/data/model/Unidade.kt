@@ -1,6 +1,7 @@
-package com.bomboniere.app.data
+package com.bomboniere.app.data.model
 
-// Unidade.kt
+import androidx.room.*
+
 @Entity(
     tableName = "unidades",
     indices = [Index(value = ["nome"], unique = true)]

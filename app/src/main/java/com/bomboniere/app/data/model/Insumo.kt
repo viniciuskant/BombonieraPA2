@@ -1,4 +1,5 @@
-package com.bomboniere.app.data
+package com.bomboniere.app.data.model
+import androidx.room.*
 
 // Insumo.kt
 @Entity(tableName = "insumos")

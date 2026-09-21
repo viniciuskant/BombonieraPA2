@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/padding"
     tools:context=".AdesivosLotes">
 
-    <!-- Título -->
 
     <TextView
         android:id="@+id/textView2"
@@ -21,18 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/back_home"
-        android:layout_width="66dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="@dimen/top_margin"
-        app:icon="?attr/homeAsUpIndicator"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Linha 1: Data e Lote -->
     <EditText
         android:id="@+id/edtData"
         android:layout_width="0dp"
@@ -58,10 +46,9 @@
         android:text="Lote"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/edtData"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintStart_toEndOf="@id/edtData"
+        app:layout_constraintTop_toBottomOf="@id/textView2" />
 
-    <!-- Linha 2: Nome do Produto -->
     <EditText
         android:id="@+id/edtNomeProduto"
         android:layout_width="0dp"
@@ -74,7 +61,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edtData" />
 
-    <!-- Linha 3: Quantidade -->
     <EditText
         android:id="@+id/edtQuantidade"
         android:layout_width="0dp"
@@ -88,7 +74,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edtNomeProduto" />
 
-    <!-- Linha 4: Switch Notificação -->
     <Switch
         android:id="@+id/switchNotificacao"
         android:layout_width="0dp"
@@ -98,9 +83,8 @@
         android:text="Ativar notificação"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtQuantidade" />
+        app:layout_constraintTop_toBottomOf="@id/edtQuantidade" />
 
-    <!-- Linha 5: Campo Dias Notificação (inicialmente escondido) -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutNotificacao"
         android:layout_width="0dp"
@@ -121,7 +105,6 @@
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Linha 6: Botões Adicionar e Gerar PDF -->
     <Button
         android:id="@+id/btnAdicionarProduto"
         android:layout_width="0dp"
@@ -132,7 +115,7 @@
         android:text="Adicionar Produto"
         app:layout_constraintEnd_toStartOf="@+id/btnGerarPDF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutNotificacao" />
+        app:layout_constraintTop_toBottomOf="@id/layoutNotificacao" />
 
     <Button
         android:id="@+id/btnGerarPDF"
@@ -143,10 +126,9 @@
         android:layout_marginEnd="16dp"
         android:text="Gerar PDF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnAdicionarProduto"
-        app:layout_constraintTop_toBottomOf="@+id/layoutNotificacao" />
+        app:layout_constraintStart_toEndOf="@id/btnAdicionarProduto"
+        app:layout_constraintTop_toBottomOf="@id/layoutNotificacao" />
 
-    <!-- Linha 7: Cabeçalho da lista -->
     <TextView
         android:id="@+id/txtNome"
         android:layout_width="0dp"
@@ -173,10 +155,9 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtNome"
-        app:layout_constraintTop_toBottomOf="@+id/btnAdicionarProduto" />
+        app:layout_constraintStart_toEndOf="@id/txtNome"
+        app:layout_constraintTop_toBottomOf="@id/btnAdicionarProduto" />
 
-    <!-- Linha 8: RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewItens"
         android:layout_width="0dp"

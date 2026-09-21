@@ -1,4 +1,10 @@
 package com.bomboniere.app
 
-class BomboniereApp {
+import android.app.Application
+import com.bomboniere.app.data.AppDatabase
+import com.bomboniere.app.data.BomboniereRepository
+
+class BomboniereApp : Application() {
+    val db by lazy { AppDatabase.get(this) }
+    val repo by lazy { BomboniereRepository(db) }
 }

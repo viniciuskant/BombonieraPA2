@@ -63,23 +63,55 @@ class LoteNotificationManager {
                     }
                 }
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    alarmManager.setExactAndAllowWhileIdle(
-                        AlarmManager.RTC_WAKEUP,
-                        calendar.timeInMillis,
-                        pendingIntent
-                    )
+                // Verifica se pode agendar alarmes exatos (Android 12+)
+                val canScheduleExact = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    alarmManager.canScheduleExactAlarms()
                 } else {
-                    alarmManager.setExact(
-                        AlarmManager.RTC_WAKEUP,
-                        calendar.timeInMillis,
-                        pendingIntent
-                    )
+                    true
                 }
 
-                android.util.Log.d("LoteNotification", "Alarme agendado para: ${calendar.time}")
+                if (canScheduleExact) {
+                    // Caminho normal: alarme exato
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        alarmManager.setExactAndAllowWhileIdle(
+                            AlarmManager.RTC_WAKEUP,
+                            calendar.timeInMillis,
+                            pendingIntent
+                        )
+                    } else {
+                        alarmManager.setExact(
+                            AlarmManager.RTC_WAKEUP,
+                            calendar.timeInMillis,
+                            pendingIntent
+                        )
+                    }
+                    android.util.Log.d("LoteNotification", "Alarme exato agendado para: ${calendar.time}")
+                } else {
+                    // Fallback: sem permissão de alarme exato
+                    // Usa setAndAllowWhileIdle (não-exato) — o sistema pode atrasar alguns minutos
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        alarmManager.setAndAllowWhileIdle(
+                            AlarmManager.RTC_WAKEUP,
+                            calendar.timeInMillis,
+                            pendingIntent
+                        )
+                    } else {
+                        alarmManager.set(
+                            AlarmManager.RTC_WAKEUP,
+                            calendar.timeInMillis,
+                            pendingIntent
+                        )
+                    }
+                    android.util.Log.w(
+                        "LoteNotification",
+                        "Sem permissão de alarme exato. Agendado alarme inexato para: ${calendar.time}"
+                    )
+                }
+            } catch (e: SecurityException) {
+                // Segurança extra: se mesmo assim falhar, loga e não quebra o app
+                android.util.Log.e("LoteNotification", "SecurityException ao agendar: ${e.message}", e)
             } catch (e: Exception) {
-                android.util.Log.e("LoteNotification", "Erro ao agendar alarme: ${e.message}")
+                android.util.Log.e("LoteNotification", "Erro ao agendar alarme: ${e.message}", e)
             }
         }
 

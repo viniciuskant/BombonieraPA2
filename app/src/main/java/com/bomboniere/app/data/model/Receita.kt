@@ -1,6 +1,6 @@
-package com.bomboniere.app.data
+package com.bomboniere.app.data.model
+import androidx.room.*
 
-// Receita.kt
 @Entity(tableName = "receitas")
 data class Receita(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
