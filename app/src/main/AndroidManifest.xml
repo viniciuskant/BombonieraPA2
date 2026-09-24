@@ -27,11 +27,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <!--
-        A linha android:exported ela define se aquela determinada janela pode ser aberta
-        por outros apps ou apenas de maneiera interna, de modo geral apenas a Main possui o
-        artibuto como true
-        -->
+
         <activity
             android:name=".Config"
             android:exported="false" />
@@ -76,15 +72,7 @@
 
         <activity
             android:name=".CalcCustos"
-            android:exported="true"
-            android:theme="@style/Theme.BombonierePA"
-            android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".insumos.InsumosActivity"
             android:exported="false" />
