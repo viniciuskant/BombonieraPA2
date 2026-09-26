@@ -10,7 +10,11 @@ import java.io.File
 import java.io.FileOutputStream
 import java.math.BigInteger
 import java.security.MessageDigest
-
+import android.text.TextUtils
+import android.text.TextPaint
+import android.os.Build
+import android.text.Layout
+import android.text.StaticLayout
 object StickerPdfGenerator {
 
     private const val PAGE_WIDTH = 595
@@ -93,40 +97,61 @@ object StickerPdfGenerator {
         lotePaint: Paint,
         borderPaint: Paint,
     ) {
-        // Borda do adesivo
+        // Borda
         canvas.drawRect(x, y, x + STICKER_WIDTH, y + STICKER_HEIGHT, borderPaint)
 
-        val nameText = sticker.productName
-        val loteText = "Lote: ${sticker.lote}"
+        val padding = 4f
+        val textWidth = (STICKER_WIDTH - padding * 2).toInt()
 
-        val nameWidth = namePaint.measureText(nameText)
+        val titlePaint = TextPaint(namePaint)
+
+        // Nome com até 2 linhas
+        val nameLayout = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            StaticLayout.Builder.obtain(
+                sticker.productName,
+                0,
+                sticker.productName.length,
+                titlePaint,
+                textWidth
+            )
+                .setAlignment(Layout.Alignment.ALIGN_CENTER)
+                .setMaxLines(2)
+                .setEllipsize(android.text.TextUtils.TruncateAt.END)
+                .build()
+        } else {
+            @Suppress("DEPRECATION")
+            StaticLayout(
+                sticker.productName,
+                titlePaint,
+                textWidth,
+                Layout.Alignment.ALIGN_CENTER,
+                1f,
+                0f,
+                false
+            )
+        }
+
+        val loteText = "Lote: ${sticker.lote}"
         val loteWidth = lotePaint.measureText(loteText)
 
-        // ascent() é negativo; -ascent() = distância do topo do texto até a baseline
-        val nameAscent = -namePaint.ascent()
-        val nameDescent = namePaint.descent()
-        val loteAscent = -lotePaint.ascent()
-        val loteDescent = lotePaint.descent()
-
-        // Centraliza verticalmente as duas linhas dentro do adesivo
-        val totalHeight = (nameAscent + nameDescent) + LINE_GAP + (loteAscent + loteDescent)
+        val gap = 2f
+        val totalHeight = nameLayout.height + gap + (lotePaint.descent() - lotePaint.ascent())
         val startY = y + (STICKER_HEIGHT - totalHeight) / 2f
 
-        val nameBaseline = startY + nameAscent
-        val loteBaseline = nameBaseline + nameDescent + LINE_GAP + loteAscent
+        // Desenha o nome
+        canvas.save()
+        canvas.translate(x + padding, startY)
+        nameLayout.draw(canvas)
+        canvas.restore()
 
-        // Centraliza horizontalmente
-        canvas.drawText(
-            nameText,
-            x + (STICKER_WIDTH - nameWidth) / 2f,
-            nameBaseline,
-            namePaint,
-        )
+        // Desenha o lote
+        val loteBaseline = startY + nameLayout.height + gap - lotePaint.ascent()
+
         canvas.drawText(
             loteText,
             x + (STICKER_WIDTH - loteWidth) / 2f,
             loteBaseline,
-            lotePaint,
+            lotePaint
         )
     }
 
